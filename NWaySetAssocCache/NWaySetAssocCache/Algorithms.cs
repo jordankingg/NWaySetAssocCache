@@ -1,0 +1,1 @@
+enum Algorithm {LRU, MRU, CUSTOM}
