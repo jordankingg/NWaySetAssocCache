@@ -46,6 +46,10 @@ namespace NWaySetAssocCache
                     head = d;
                 }
             }
+            else
+            {
+                d = null;
+            }
             return d.val;
         }
 
@@ -87,7 +91,7 @@ namespace NWaySetAssocCache
         {
             DNode<K, V> actualValue = d;
             setData.TryGetValue(d.key, out actualValue);
-            
+
             setData.Remove(d.key);
             removeDNode(actualValue);
         }

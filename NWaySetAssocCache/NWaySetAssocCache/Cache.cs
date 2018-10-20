@@ -14,7 +14,7 @@ namespace NWaySetAssocCache
     /// <typeparam name="V">Represents the cache pair's value type</typeparam>
     class Cache<K, V>
     {
-        public int cacheSize, nSets, setSize;
+        public int cacheSize, nSets, nItems;
         private Algorithm algorithm = Algorithm.LRU;
         public List<Set<K, V>> cache = new List<Set<K, V>>();
 
@@ -22,16 +22,16 @@ namespace NWaySetAssocCache
         /// Cache constructor when no cache replacement algorithm is supplied
         /// </summary>
         /// <param name="cacheSize">Size of the cache</param>
-        /// <param name="setSize">Number of cache items in a Set</param>
-        public Cache(int cacheSize, int setSize)
+        /// <param name="nItems">Number of cache items in a Set</param>
+        public Cache(int cacheSize, int nItems)
         {
             this.cacheSize = cacheSize;
-            this.setSize = setSize;
-            this.nSets = this.cacheSize / this.setSize;
+            this.nItems = nItems;
+            this.nSets = this.cacheSize / this.nItems;
 
             for (int i = 0; i < nSets; i++)
             {
-                cache.Add(new Set<K, V>(setSize, algorithm));
+                cache.Add(new Set<K, V>(nItems, algorithm));
             }
         }
 
@@ -39,18 +39,18 @@ namespace NWaySetAssocCache
         /// Cache constructor when a cache replacement algorithm is supplied
         /// </summary>
         /// <param name="cacheSize">Size of the cache</param>
-        /// <param name="setSize">Number of cache items in a Set</param>
+        /// <param name="nItems">Number of cache items in a Set</param>
         /// <param name="algorithm">Caching algorithm</param>
-        public Cache(int cacheSize, int setSize, Algorithm algorithm)
+        public Cache(int cacheSize, int nItems, Algorithm algorithm)
         {
             this.cacheSize = cacheSize;
-            this.setSize = setSize;
-            this.nSets = this.cacheSize / this.setSize;
+            this.nItems = nItems;
+            this.nSets = this.cacheSize / this.nItems;
             this.algorithm = algorithm;
 
             for (int i = 0; i < nSets; i++)
             {
-                cache.Add(new Set<K, V>(setSize, algorithm));
+                cache.Add(new Set<K, V>(nItems, algorithm));
             }
         }
 

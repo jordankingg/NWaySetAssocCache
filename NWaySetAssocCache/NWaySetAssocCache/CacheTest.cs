@@ -50,6 +50,22 @@ namespace NWaySetAssocCache
             Assert.IsTrue(cache.getCache()[0].cacheAlgo.get('A') == 65);
         }
 
+        [Test]
+        public void returnNull()
+        {
+            Cache<char, int> cache = new Cache<char, int>(4, 4, Algorithm.LRU);
+
+            cache.put('A', 1);
+            cache.put('B', 2);
+            cache.put('C', 3);
+            cache.put('D', 4);
+            cache.put('E', 5);
+            cache.put('A', 65);
+
+
+            Assert.IsTrue(cache.getCache()[0].cacheAlgo.get('F') == null);
+        }
+
     }
 }
 
