@@ -38,11 +38,5 @@ namespace NWaySetAssocCache
         /// <param name="d">DNode to remove from DLL</param>
         void removeDNode(DNode<K, V> d);
 
-        /// <summary>
-        /// Gets the head DNode, for testing purposes
-        /// </summary>
-        /// <returns>The head DNode</returns>
-        DNode<K, V> getHead();
-
     }
 }

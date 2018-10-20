@@ -7,11 +7,11 @@ namespace NWaySetAssocCache
     {
         private Dictionary<K, DNode<K, V>> setData = new Dictionary<K, DNode<K, V>>();
         public DNode<K, V> head, tail = null;
-        private int setSize;
+        private int nItems;
 
-        public LRU(int setSize)
+        public LRU(int nItems)
         {
-            this.setSize = setSize;
+            this.nItems = nItems;
         }
 
         /// <summary>
@@ -30,10 +30,9 @@ namespace NWaySetAssocCache
         /// <returns></returns>
         public V get(K key)
         {
-            DNode<K, V> d = null;
-            if (setData.TryGetValue(key, out d))
+            if (setData.TryGetValue(key, out DNode<K, V> d))
             {
-                if (head != d)
+                if (head == null)
                 {
                     head = d;
                     tail = d;
@@ -45,10 +44,6 @@ namespace NWaySetAssocCache
                     d.next = head;
                     head = d;
                 }
-            }
-            else
-            {
-                d = null;
             }
             return d.val;
         }
@@ -63,7 +58,7 @@ namespace NWaySetAssocCache
             DNode<K, V> dNew = new DNode<K, V>(key, value);
             remove(dNew);
 
-            if (setData.Count >= setSize && tail != null)
+            if (setData.Count >= nItems && tail != null)
             {
                 remove(tail);
             }
@@ -91,7 +86,7 @@ namespace NWaySetAssocCache
         {
             DNode<K, V> actualValue = d;
             setData.TryGetValue(d.key, out actualValue);
-
+            
             setData.Remove(d.key);
             removeDNode(actualValue);
         }
@@ -114,13 +109,5 @@ namespace NWaySetAssocCache
                 head = d.next;
         }
 
-        /// <summary>
-        /// Gets the head DNode, for testing purposes
-        /// </summary>
-        /// <returns>The head DNode</returns>
-        public DNode<K, V> getHead()
-        {
-            return head;
-        }
     }
 }

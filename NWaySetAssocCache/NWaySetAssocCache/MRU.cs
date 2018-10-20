@@ -7,11 +7,11 @@ namespace NWaySetAssocCache
     {
         private Dictionary<K, DNode<K, V>> setData = new Dictionary<K, DNode<K, V>>();
         public DNode<K, V> head, tail = null;
-        private int setSize;
+        private int nItems;
 
-        public MRU(int setSize)
+        public MRU(int nItems)
         {
-            this.setSize = setSize;
+            this.nItems = nItems;
         }
 
         /// <summary>
@@ -31,8 +31,7 @@ namespace NWaySetAssocCache
         /// <returns></returns>
         public V get(K key)
         {
-            DNode<K, V> d = null;
-            if (setData.TryGetValue(key, out d))
+            if (setData.TryGetValue(key, out DNode<K, V> d))
             {
                 if (head == null)
                 {
@@ -60,13 +59,13 @@ namespace NWaySetAssocCache
             DNode<K, V> dNew = new DNode<K, V>(key, value);
             remove(dNew);
 
-            if (setData.Count >= setSize && head != null)
+            if (setData.Count >= nItems && head != null)
             {
                 remove(head);
             }
 
             setData.Add(key, dNew);
-            if (head != dNew)
+            if (head == null)
             {
                 head = dNew;
                 tail = dNew;
@@ -86,8 +85,11 @@ namespace NWaySetAssocCache
         /// <param name="d">DNode to remove</param>
         public void remove(DNode<K, V> d)
         {
+            DNode<K, V> actualValue = d;
+            setData.TryGetValue(d.key, out actualValue);
+
             setData.Remove(d.key);
-            removeDNode(d);
+            removeDNode(actualValue);
         }
 
         /// <summary>
@@ -106,15 +108,6 @@ namespace NWaySetAssocCache
                 tail = d.previous;
             if (d == head)
                 head = d.next;
-        }
-
-        /// <summary>
-        /// Gets the head DNode, for testing purposes
-        /// </summary>
-        /// <returns>The head DNode</returns>
-        public DNode<K, V> getHead()
-        {
-            return head;
         }
 
     }

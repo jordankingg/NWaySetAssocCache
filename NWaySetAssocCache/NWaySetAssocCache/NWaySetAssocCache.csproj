@@ -43,7 +43,6 @@
     <Compile Include="LRU.cs" />
     <Compile Include="MRU.cs" />
     <Compile Include="Set.cs" />
-    <Compile Include="CacheTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
