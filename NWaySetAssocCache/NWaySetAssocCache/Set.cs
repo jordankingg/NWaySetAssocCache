@@ -58,16 +58,6 @@ namespace NWaySetAssocCache
             cacheAlgo.set(newKey, newValue);
         }
 
-        /// <summary>
-        /// Checks if 
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>True if set contains key. False if</returns>
-        public bool contains(K key)
-        {
-            if (cacheAlgo.getSetData() == null)
-                return false;
-            return cacheAlgo.getSetData().ContainsKey(key);
-        }
+
     }
 }
