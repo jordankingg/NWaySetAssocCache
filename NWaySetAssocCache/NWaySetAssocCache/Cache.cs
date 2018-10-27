@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Linq;
+using System.Diagnostics;
 
 namespace NWaySetAssocCache
 {
@@ -12,7 +13,7 @@ namespace NWaySetAssocCache
     /// </summary>
     /// <typeparam name="K">Represents the cache pair's key type</typeparam>
     /// <typeparam name="V">Represents the cache pair's value type</typeparam>
-    class Cache<K, V>
+    public class Cache<K, V>
     {
         public int cacheSize, nSets, nItems;
         private Algorithm algorithm = Algorithm.LRU;
@@ -36,7 +37,7 @@ namespace NWaySetAssocCache
         }
 
         /// <summary>
-        /// Cache constructor when a cache replacement algorithm is supplied
+        /// Cache constructor when a default cache replacement algorithm (LRU, MRU) is supplied
         /// </summary>
         /// <param name="cacheSize">Size of the cache</param>
         /// <param name="nItems">Number of cache items in a Set</param>
@@ -50,7 +51,25 @@ namespace NWaySetAssocCache
 
             for (int i = 0; i < nSets; i++)
             {
-                cache.Add(new Set<K, V>(nItems, algorithm));
+                cache.Add(new Set<K, V>(nItems, this.algorithm));
+            }
+        }
+
+        /// <summary>
+        /// Cache constructor when a custom cache replacement algorithm is supplied
+        /// </summary>
+        /// <param name="cacheSize">Size of the cache</param>
+        /// <param name="nItems">Number of cache items in a Set</param>
+        /// <param name="custAlgorithm">Custom replacement algorithm</param>
+        public Cache(int cacheSize, int nItems, ICacheAlgorithms<K, V> custAlgorithm)
+        {
+            this.cacheSize = cacheSize;
+            this.nItems = nItems;
+            this.nSets = this.cacheSize / this.nItems;
+
+            for (int i = 0; i < nSets; i++)
+            {
+                cache.Add(new Set<K, V>(nItems, custAlgorithm));
             }
         }
 
@@ -92,5 +111,29 @@ namespace NWaySetAssocCache
         {
             cache[getSetIndex(key)].add(key, value);
         }
+
+        /// <summary>
+        /// Returns whether the cache contains the specified key
+        /// </summary>
+        /// <returns>True if cache contains key, False if cache does not contain key</returns>
+        /// <param name="key">Key</param>
+        public bool contains(K key)
+        {
+            return cache[getSetIndex(key)].contains(key);
+        }
+
+        public void printCache()
+        {
+            for (int i = 0; i < nSets; i++)
+            {
+                foreach (var pair in cache[i].cacheAlgo.getSetData())
+                {
+                    Debug.WriteLine($"Cache Key: {pair.Key}, Value: {pair.Value.val}");
+                }
+                Debug.WriteLine("");
+            }
+        }
     }
 }
+
+

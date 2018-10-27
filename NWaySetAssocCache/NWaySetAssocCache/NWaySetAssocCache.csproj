@@ -37,12 +37,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Algorithms.cs" />
     <Compile Include="Cache.cs" />
-    <Compile Include="Custom.cs" />
     <Compile Include="DNode.cs" />
     <Compile Include="ICacheAlgorithms.cs" />
     <Compile Include="LRU.cs" />
     <Compile Include="MRU.cs" />
     <Compile Include="Set.cs" />
+    <Compile Include="NWaySetAssocCacheTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

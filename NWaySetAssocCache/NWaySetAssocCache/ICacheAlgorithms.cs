@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace NWaySetAssocCache
 {
-     interface ICacheAlgorithms<K, V> {
+     public interface ICacheAlgorithms<K, V> {
 
          /// <summary>
          /// Getter for the private setData variable
@@ -38,5 +38,24 @@ namespace NWaySetAssocCache
         /// <param name="d">DNode to remove from DLL</param>
         void removeDNode(DNode<K, V> d);
 
-    }
+        /// <summary>
+        /// Gets the head node
+        /// </summary>
+        /// <returns>The head</returns>
+        DNode<K, V> getHead();
+
+
+        /// <summary>
+        /// Gets the tail node
+        /// </summary>
+        /// <returns>The tail node</returns>
+        DNode<K, V> getTail();
+
+        /// <summary>
+        /// Returns whether the cache contains the specified key
+        /// </summary>
+        /// <returns>True if cache contains key, False if cache does not contain key</returns>
+        /// <param name="key">Key</param>
+        bool contains(K key);
+    } 
 }

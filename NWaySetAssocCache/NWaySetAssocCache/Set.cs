@@ -4,17 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace NWaySetAssocCache
-{   /// <summary>Class <c>Set</c> models a Set in a N-Way Set Associative Cache.</summary>
-    class Set<K, V>
-    {   
+{
+    /// <summary>Class <c>Set</c> models a Set in a N-Way Set Associative Cache.</summary>
+    public class Set<K, V>
+    {
         private int nItems;
         public ICacheAlgorithms<K, V> cacheAlgo;
 
         /// <summary>
         /// Constructor for Set, instantiates the ICacheAlgorithms interfaced based on which algorithm was supplied
         /// </summary>
-        /// <param name="setSize"></param>
-        /// <param name="algorithm"></param>
+        /// <param name="nItems">Number of cache items in a Set</param>
+        /// <param name="algorithm">Default replacement algorithm (LRU/MRU)</param>
         public Set(int nItems, Algorithm algorithm)
         {
             this.nItems = nItems;
@@ -28,13 +29,17 @@ namespace NWaySetAssocCache
             {
                 cacheAlgo = new MRU<K, V>(nItems);
             }
+        }
 
-            else if (algorithm == Algorithm.CUSTOM)
-            {
-                //Uncomment line below if client decides to implement Custom caching algorithm
-
-                //cacheAlgo = new Custom<K, V>(setSize);
-            } 
+        /// <summary>
+        /// Constructor for Set when a custom cache replacement algorithm is supplied
+        /// </summary>
+        /// <param name="nItems">Number of cache items in a Set</param>
+        /// <param name="algorithm">Custom replacement algorithm</param>
+        public Set(int nItems, ICacheAlgorithms<K, V> algorithm)
+        {
+            this.nItems = nItems;
+            cacheAlgo = algorithm;
         }
 
         /// <summary>
@@ -58,6 +63,14 @@ namespace NWaySetAssocCache
             cacheAlgo.set(newKey, newValue);
         }
 
-
+        /// <summary>
+        /// Returns whether the cache contains the specified key
+        /// </summary>
+        /// <returns>True if cache contains key, False if cache does not contain key</returns>
+        /// <param name="key">Key</param>
+        public bool contains(K key)
+        {
+            return cacheAlgo.contains(key);
+        }
     }
 }

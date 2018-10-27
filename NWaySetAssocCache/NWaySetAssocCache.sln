@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NWaySetAssocCache", "NWaySetAssocCache\NWaySetAssocCache.csproj", "{70138B00-030F-4292-B47B-7E2733CE4FE3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EF6DCA28-FB0E-4C01-8770-48740469F05F}"
+	ProjectSection(SolutionItems) = preProject
+		NWaySetAsssocCacheTests.cs = NWaySetAsssocCacheTests.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

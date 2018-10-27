@@ -1,4 +1,5 @@
-namespace NWaySetAssocCache {   /// <summary>
+namespace NWaySetAssocCache {   
+    /// <summary>
     /// Represents the nodes in a doubly linked list
     /// </summary>
     /// <typeparam name="K">Represents the cache pair's key type</typeparam>

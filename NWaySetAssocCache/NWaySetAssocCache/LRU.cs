@@ -109,5 +109,32 @@ namespace NWaySetAssocCache
                 head = d.next;
         }
 
+        /// <summary>
+        /// Gets the head node
+        /// </summary>
+        /// <returns>The head node</returns>
+        public DNode<K, V> getHead()
+        {
+            return head;
+        }
+
+        /// <summary>
+        /// Gets the tail node
+        /// </summary>
+        /// <returns>The tail node</returns>
+        public DNode<K, V> getTail()
+        {
+            return tail;
+        }
+
+        /// <summary>
+        /// Returns whether the cache contains the specified key
+        /// </summary>
+        /// <returns>True if cache contains key, False if cache does not contain key</returns>
+        /// <param name="key">Key</param>
+        public bool contains(K key)
+        {
+            return setData.ContainsKey(key);
+        }
     }
 }
